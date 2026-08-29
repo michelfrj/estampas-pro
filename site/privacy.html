@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="referrer" content="no-referrer" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; img-src 'self' data:; base-uri 'none'; form-action 'none'" />
+  <title>Privacidade | Estampas Pro</title>
+  <meta name="description" content="Política de privacidade do Estampas Pro." />
+  <style>
+    :root { color-scheme: dark; font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    body { margin: 0; background: #121213; color: #e0e0e0; }
+    main { width: min(860px, calc(100% - 32px)); margin: 0 auto; padding: 40px 0 64px; }
+    a { color: #67e8f9; }
+    h1 { color: #fff; font-size: 28px; margin-bottom: 6px; }
+    h2 { color: #fff; font-size: 18px; margin-top: 32px; }
+    p, li { line-height: 1.65; color: #b5b5b7; }
+    .lead { color: #d7d7d9; font-size: 17px; }
+    .card { border: 1px solid #2d2d2e; background: #161617; border-radius: 12px; padding: 18px; margin-top: 20px; }
+    .local { border-color: rgba(34,211,238,.35); background: rgba(8,51,68,.18); }
+    code { color: #a5f3fc; }
+  </style>
+</head>
+<body>
+<main>
+  <a href="./">← Voltar ao Estampas Pro</a>
+  <h1>Privacidade do Estampas Pro</h1>
+  <p class="lead">As artes são processadas localmente no navegador. Pixels, arquivos de imagem, previews e PNGs não são enviados ao backend para executar os recursos gráficos da ferramenta.</p>
+
+  <section class="card local">
+    <h2>O que permanece no dispositivo</h2>
+    <ul>
+      <li>pixels e arquivo da arte carregada;</li>
+      <li>canvases, previews e resultados intermediários;</li>
+      <li>arquivos PNG e ZIP gerados antes do download;</li>
+      <li>paleta detectada e agrupamentos de pixels específicos de uma arte;</li>
+      <li>perfil local separado pela conta autenticada.</li>
+    </ul>
+    <p>A infraestrutura antiga de eventos semânticos locais foi retirada. Stores legados de atividade são removidos quando a base local é atualizada.</p>
+  </section>
+
+  <h2>Conta e perfil</h2>
+  <p>O Supabase Auth é usado para autenticação, recuperação de senha e sessão. O serviço pode manter identificador da conta, e-mail e dados técnicos de autenticação. A tabela de perfil sincroniza nome de exibição e datas técnicas.</p>
+
+  <h2>Histórico de exportações</h2>
+  <p>Quando uma exportação é concluída, podem ser sincronizados metadados associados à conta, incluindo nome do arquivo original, nome do arquivo exportado, data, dimensões, DPI, modo de processamento, perfil de saída, fundo e um snapshot reutilizável das configurações técnicas.</p>
+  <p>Esse histórico não contém pixels, miniaturas, previews ou o arquivo binário da arte. Paletas detectadas e agrupamentos de cores derivados de uma arte específica são removidos dos snapshots reutilizáveis.</p>
+
+  <h2>Presets</h2>
+  <p>Presets podem sincronizar o nome escolhido pelo usuário e configurações reutilizáveis. Dados derivados de uma arte específica, como a paleta detectada de Cores Diretas, não são salvos como parte do preset.</p>
+
+  <h2>Isolamento e autorização</h2>
+  <p>As tabelas remotas usam Row Level Security. O cliente autenticado só deve ler ou gravar registros associados ao próprio <code>auth.uid()</code>. O perfil local também é separado pelo identificador da conta autenticada.</p>
+
+  <h2>Exclusão</h2>
+  <p>A área da conta permite excluir histórico, presets e a própria conta conforme as funções disponíveis no produto. A exclusão da conta remove a identidade autenticada e os metadados remotos relacionados. Artes não precisam ser apagadas no backend porque elas não são armazenadas nele.</p>
+
+  <h2>Terceiros</h2>
+  <p>O Estampas Pro pode usar Supabase para autenticação e sincronização de metadados, Google como provedor opcional de login e Cloudflare Turnstile para proteção anti-bot.</p>
+
+  <h2>Princípios</h2>
+  <ol>
+    <li>pixels e arquivos das artes permanecem locais;</li>
+    <li>somente metadados documentados podem ser sincronizados;</li>
+    <li>credenciais privilegiadas não podem existir no bundle do navegador;</li>
+    <li>registros remotos devem permanecer protegidos por autorização no banco;</li>
+    <li>mudanças no conjunto de dados sincronizados exigem atualização desta política.</li>
+  </ol>
+
+  <p><a href="security.html">Segurança</a> · <a href="terms.html">Termos de Uso</a></p>
+</main>
+</body>
+</html>

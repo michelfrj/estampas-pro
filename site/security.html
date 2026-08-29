@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="referrer" content="no-referrer" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; img-src 'self' data:; base-uri 'none'; form-action 'none'" />
+  <title>Segurança | Estampas Pro</title>
+  <meta name="description" content="Visão pública de segurança do Estampas Pro." />
+  <style>
+    :root { color-scheme: dark; font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    body { margin: 0; background: #121213; color: #e0e0e0; }
+    main { width: min(860px, calc(100% - 32px)); margin: 0 auto; padding: 40px 0 64px; }
+    a { color: #67e8f9; }
+    h1 { color: #fff; font-size: 28px; margin-bottom: 6px; }
+    h2 { color: #fff; font-size: 18px; margin-top: 32px; }
+    p, li { line-height: 1.65; color: #b5b5b7; }
+    .lead { color: #d7d7d9; font-size: 17px; }
+    .card { border: 1px solid #2d2d2e; background: #161617; border-radius: 12px; padding: 18px; margin-top: 20px; }
+    code { color: #a5f3fc; }
+  </style>
+</head>
+<body>
+<main>
+  <a href="./">← Voltar ao Estampas Pro</a>
+  <h1>Segurança do Estampas Pro</h1>
+  <p class="lead">O núcleo gráfico é executado no navegador. O backend é usado para autenticação e metadados da conta, não para processar os pixels das artes.</p>
+
+  <section class="card">
+    <h2>Princípios principais</h2>
+    <ul>
+      <li>nenhuma chave secreta ou <code>service_role</code> deve existir no bundle do navegador;</li>
+      <li>as tabelas de usuário usam Row Level Security vinculada ao usuário autenticado;</li>
+      <li>o cliente recebe apenas a chave publicável necessária ao Supabase;</li>
+      <li>pixels, imagens, thumbnails e previews não são enviados ao backend pelo pipeline gráfico;</li>
+      <li>alterações de processamento, autenticação, banco e exportação passam por testes antes de chegar à versão principal.</li>
+    </ul>
+  </section>
+
+  <h2>Autenticação</h2>
+  <p>A autenticação usa o cliente oficial do Supabase, fluxo PKCE quando aplicável e validação da sessão antes de liberar o editor. A recuperação de senha não confirma publicamente se um endereço possui conta.</p>
+  <p>Cloudflare Turnstile pode proteger o fluxo de autenticação quando configurado tanto no frontend quanto no Supabase Auth. A proteção contra senhas comprometidas também é uma configuração hospedada que deve ser habilitada no projeto de produção.</p>
+
+  <h2>Autorização</h2>
+  <p>Perfil, presets e histórico são associados ao UUID da conta. As políticas do banco devem exigir <code>auth.uid() = user_id</code> e os privilégios SQL devem seguir menor privilégio.</p>
+  <p>A estrutura antiga de papel administrativo, allowlist e eventos semânticos foi removida porque não possuía consumidor no produto atual. Uma futura área administrativa deverá nascer com autorização e migrations próprias.</p>
+
+  <h2>Dados locais</h2>
+  <p>O IndexedDB atual mantém somente o perfil local por conta. Stores antigos de atividade e perfil sem escopo são removidos durante a atualização da base local.</p>
+
+  <h2>Exclusão de conta</h2>
+  <p>A exclusão é executada por uma Edge Function que revalida o token autenticado, exige a confirmação do e-mail e usa a credencial administrativa somente no ambiente do servidor.</p>
+
+  <h2>Pipeline gráfico</h2>
+  <p>As etapas de Ajustes e Fundo e limpeza devem alimentar todos os modos de processamento. A ferramenta também aplica limites de resolução e memória para reduzir risco de travamento do navegador durante previews e exportações pesadas.</p>
+
+  <h2>Relato de vulnerabilidades</h2>
+  <p>Falhas de segurança não devem ser publicadas com detalhes exploráveis em issues abertas antes de uma correção. Quando disponível, utilize o canal privado de Security Advisories do repositório.</p>
+
+  <p><a href="privacy.html">Privacidade</a> · <a href="terms.html">Termos de Uso</a></p>
+</main>
+</body>
+</html>
