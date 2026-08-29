@@ -8,7 +8,7 @@
   <title>Privacidade | Estampas Pro</title>
   <meta name="description" content="Política de privacidade do Estampas Pro." />
   <style>
-    :root { color-scheme: dark; font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    :root { color-scheme: dark; font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
     body { margin: 0; background: #121213; color: #e0e0e0; }
     main { width: min(860px, calc(100% - 32px)); margin: 0 auto; padding: 40px 0 64px; }
     a { color: #67e8f9; }
@@ -18,54 +18,42 @@
     .lead { color: #d7d7d9; font-size: 17px; }
     .card { border: 1px solid #2d2d2e; background: #161617; border-radius: 12px; padding: 18px; margin-top: 20px; }
     .local { border-color: rgba(34,211,238,.35); background: rgba(8,51,68,.18); }
-    code { color: #a5f3fc; }
   </style>
 </head>
 <body>
 <main>
   <a href="./">← Voltar ao Estampas Pro</a>
   <h1>Privacidade do Estampas Pro</h1>
-  <p class="lead">As artes são processadas localmente no navegador. Pixels, arquivos de imagem, previews e PNGs não são enviados ao backend para executar os recursos gráficos da ferramenta.</p>
+  <p class="lead">As artes são processadas localmente no navegador. A imagem que você abre, os previews e os arquivos gerados para download não precisam ser enviados ao servidor para que o editor funcione.</p>
 
   <section class="card local">
-    <h2>O que permanece no dispositivo</h2>
-    <ul>
-      <li>pixels e arquivo da arte carregada;</li>
-      <li>canvases, previews e resultados intermediários;</li>
-      <li>arquivos PNG e ZIP gerados antes do download;</li>
-      <li>paleta detectada e agrupamentos de pixels específicos de uma arte;</li>
-      <li>perfil local separado pela conta autenticada.</li>
-    </ul>
-    <p>A infraestrutura antiga de eventos semânticos locais foi retirada. Stores legados de atividade são removidos quando a base local é atualizada.</p>
+    <h2>Sua arte fica com você</h2>
+    <p>Enquanto você prepara uma estampa, a imagem e os resultados do processamento permanecem no seu dispositivo. Isso inclui os pixels da arte, as visualizações temporárias, as separações geradas e os arquivos preparados para download.</p>
+    <p>O Estampas Pro não mantém uma cópia dessas imagens no serviço de conta.</p>
   </section>
 
-  <h2>Conta e perfil</h2>
-  <p>O Supabase Auth é usado para autenticação, recuperação de senha e sessão. O serviço pode manter identificador da conta, e-mail e dados técnicos de autenticação. A tabela de perfil sincroniza nome de exibição e datas técnicas.</p>
+  <h2>Dados da sua conta</h2>
+  <p>Para permitir login, recuperação de senha e sincronização entre sessões, podem ser armazenados seu identificador de conta, e-mail, nome de exibição e informações necessárias ao funcionamento seguro da autenticação.</p>
 
   <h2>Histórico de exportações</h2>
-  <p>Quando uma exportação é concluída, podem ser sincronizados metadados associados à conta, incluindo nome do arquivo original, nome do arquivo exportado, data, dimensões, DPI, modo de processamento, perfil de saída, fundo e um snapshot reutilizável das configurações técnicas.</p>
-  <p>Esse histórico não contém pixels, miniaturas, previews ou o arquivo binário da arte. Paletas detectadas e agrupamentos de cores derivados de uma arte específica são removidos dos snapshots reutilizáveis.</p>
+  <p>Quando você conclui uma exportação, o histórico pode registrar informações úteis para consultar o trabalho depois, como nome do arquivo, data, dimensões, resolução, modo de processamento e configurações usadas.</p>
+  <p>O histórico não guarda a imagem, uma miniatura da arte nem o arquivo exportado.</p>
 
   <h2>Presets</h2>
-  <p>Presets podem sincronizar o nome escolhido pelo usuário e configurações reutilizáveis. Dados derivados de uma arte específica, como a paleta detectada de Cores Diretas, não são salvos como parte do preset.</p>
+  <p>Os presets guardam o nome escolhido e as configurações necessárias para reutilizar um ajuste. Informações detectadas especificamente a partir de uma determinada imagem não são tratadas como parte permanente do preset.</p>
 
-  <h2>Isolamento e autorização</h2>
-  <p>As tabelas remotas usam Row Level Security. O cliente autenticado só deve ler ou gravar registros associados ao próprio <code>auth.uid()</code>. O perfil local também é separado pelo identificador da conta autenticada.</p>
+  <h2>Seus dados não são compartilhados com outras contas</h2>
+  <p>Os dados sincronizados são associados à conta que os criou. Os controles de acesso do serviço são configurados para impedir que uma conta consulte ou altere os registros de outra.</p>
 
   <h2>Exclusão</h2>
-  <p>A área da conta permite excluir histórico, presets e a própria conta conforme as funções disponíveis no produto. A exclusão da conta remove a identidade autenticada e os metadados remotos relacionados. Artes não precisam ser apagadas no backend porque elas não são armazenadas nele.</p>
+  <p>Na área da conta você pode excluir histórico, presets e, quando desejar, a própria conta. A exclusão definitiva não permite recuperar os dados removidos posteriormente.</p>
+  <p>Como as artes não são armazenadas no serviço de conta, não existe uma cópia delas no servidor para ser apagada.</p>
 
-  <h2>Terceiros</h2>
-  <p>O Estampas Pro pode usar Supabase para autenticação e sincronização de metadados, Google como provedor opcional de login e Cloudflare Turnstile para proteção anti-bot.</p>
+  <h2>Serviços utilizados</h2>
+  <p>O Estampas Pro pode utilizar Supabase para autenticação e sincronização dos dados da conta, Google como opção de login e Cloudflare Turnstile para proteção contra robôs e tentativas de abuso.</p>
 
-  <h2>Princípios</h2>
-  <ol>
-    <li>pixels e arquivos das artes permanecem locais;</li>
-    <li>somente metadados documentados podem ser sincronizados;</li>
-    <li>credenciais privilegiadas não podem existir no bundle do navegador;</li>
-    <li>registros remotos devem permanecer protegidos por autorização no banco;</li>
-    <li>mudanças no conjunto de dados sincronizados exigem atualização desta política.</li>
-  </ol>
+  <h2>Nosso compromisso</h2>
+  <p>Coletamos apenas as informações necessárias para oferecer as funções descritas nesta política. Se o conjunto de dados sincronizados mudar de forma relevante, esta página será atualizada para explicar a alteração.</p>
 
   <p><a href="security.html">Segurança</a> · <a href="terms.html">Termos de Uso</a></p>
 </main>
