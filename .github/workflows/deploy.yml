@@ -33,10 +33,13 @@ jobs:
         run: |
           set -euo pipefail
           test -s site/index.html
-          test -s site/terms.html
+          test -s site/fonts/open-sans-regular.woff2
           test -f site/.nojekyll
+          test ! -e site/terms.html
+          test ! -e site/privacy.html
+          test ! -e site/security.html
           grep -q --fixed-strings '/estampas-pro/assets/' site/index.html
-          if find site -type f \( -name '*.map' -o -name '*.ts' -o -name '*.tsx' \) -print -quit | grep -q .; then
+          if find site -type f \( -name '*.map' -o -name '*.ts' -o -name '*.tsx' -o -name '*.jsx' \) -print -quit | grep -q .; then
             echo 'Source or source map detected in public payload.'
             exit 1
           fi
