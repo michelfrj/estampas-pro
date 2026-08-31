@@ -1,1 +1,0 @@
-Production rollback recovery marker — 2026-08-31. Restored compiled payload from 82a2f7ddb7a28287b65cc58c94e49a91b61c814b.
